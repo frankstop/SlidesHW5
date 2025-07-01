@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .slide-content { min-height: 200px; /* Prevents layout shift while loading */ }
+        .navigation { margin-top: 20px; }
+        .navigation a { text-decoration: none; padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; }
+        .navigation a.disabled { background-color: #ccc; pointer-events: none; cursor: default; }
+    </style>
+</head>
+<body>
+
+    <div id="slide-content" class="slide-content"></div>
+
+    <div class="navigation">
+        <a href="#" id="prev-btn">Previous</a>
+        <a href="#" id="next-btn" style="margin-left: 10px;">Next</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalSlides = 12;
+            const slideContent = document.getElementById('slide-content');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            let currentSlide = 1;
+
+            // Function to load a specific slide
+            const loadSlide = async (slideNumber) => {
+                // Ensure slide number is within bounds
+                if (slideNumber < 1) slideNumber = 1;
+                if (slideNumber > totalSlides) slideNumber = totalSlides;
+                
+                currentSlide = slideNumber;
+                
+                // Fetch and display the slide content
+                try {
+                    const response = await fetch(`slide${currentSlide}.html`);
+                    if (!response.ok) throw new Error('Slide not found');
+                    const html = await response.text();
+                    slideContent.innerHTML = html;
+                } catch (error) {
+                    slideContent.innerHTML = '<h1>Error: Slide not found!</h1>';
+                    console.error('Failed to load slide:', error);
+                }
+
+                // Update the URL in the browser's address bar without reloading
+                const url = new URL(window.location);
+                url.searchParams.set('slide', currentSlide);
+                history.pushState({}, '', url);
+
+                // Update the state of the navigation buttons
+                updateNavButtons();
+            };
+
+            // Function to enable/disable navigation buttons
+            const updateNavButtons = () => {
+                // Previous button
+                if (currentSlide <= 1) {
+                    prevBtn.classList.add('disabled');
+                } else {
+                    prevBtn.classList.remove('disabled');
+                }
+                // Next button
+                if (currentSlide >= totalSlides) {
+                    nextBtn.classList.add('disabled');
+                } else {
+                    nextBtn.classList.remove('disabled');
+                }
+            };
+            
+            // Event listeners for nav buttons
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent the link from navigating
+                if (currentSlide > 1) {
+                    loadSlide(currentSlide - 1);
+                }
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent the link from navigating
+                if (currentSlide < totalSlides) {
+                    loadSlide(currentSlide + 1);
+                }
+            });
+            
+            // Initial load: check URL for a slide number
+            const initialParams = new URLSearchParams(window.location.search);
+            const initialSlide = parseInt(initialParams.get('slide')) || 1;
+            loadSlide(initialSlide);
+        });
+    </script>
+
+</body>
+</html>
