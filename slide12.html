@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS EC2 Deployment Tutorial</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #ffffff;
+            position: relative;
+        }
+        .aws-accent-border {
+            background-color: #232F3E;
+            height: 8px;
+            width: 100%;
+        }
+        .aws-orange {
+            color: #FF9900;
+        }
+        .next-step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+        .step-icon {
+            margin-top: 4px;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- AWS-styled top border -->
+        <div class="aws-accent-border"></div>
+        
+        <!-- Main content -->
+        <div class="flex flex-col justify-center items-center h-full px-16 py-12">
+            <h1 class="text-4xl font-bold mb-6 text-center text-gray-800">Conclusion & Next Steps</h1>
+            
+            <div class="w-24 h-1 bg-orange-400 mb-10"></div>
+            
+            <div class="text-center mb-12">
+                <div class="flex justify-center mb-6">
+                    <i class="fas fa-check-circle text-5xl text-green-500"></i>
+                </div>
+                <p class="text-2xl font-semibold text-gray-700 mb-2">
+                    You've deployed a live PHP & MySQL web app from localhost to AWS EC2!
+                </p>
+            </div>
+            
+            <div class="w-full max-w-2xl">
+                <div class="next-step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-shield-alt text-xl aws-orange"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl text-gray-700">Review best practices for AWS security</span>
+                    </div>
+                </div>
+                
+                <div class="next-step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-cogs text-xl aws-orange"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl text-gray-700">Explore automation with scripts or AWS Elastic Beanstalk</span>
+                    </div>
+                </div>
+                
+                <div class="next-step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-graduation-cap text-xl aws-orange"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl text-gray-700">Continue building on your AWS skills!</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <p class="text-2xl font-semibold text-center text-gray-700">
+                    Thank you for watching!
+                </p>
+            </div>
+        </div>
+        
+        <!-- AWS-styled bottom border -->
+        <div class="aws-accent-border absolute bottom-0"></div>
+    </div>
+</body>
+</html>

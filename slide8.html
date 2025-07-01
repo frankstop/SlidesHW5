@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS EC2 Deployment Tutorial</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #ffffff;
+            position: relative;
+        }
+        .aws-accent-border {
+            background-color: #232F3E;
+            height: 8px;
+            width: 100%;
+        }
+        .aws-orange {
+            color: #FF9900;
+        }
+        .content-area {
+            padding: 40px 60px;
+        }
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .bullet-icon {
+            margin-top: 4px;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+            background-color: #f2f2f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d73a49;
+        }
+        .code-block {
+            font-family: 'Courier New', monospace;
+            background-color: #f8f8f8;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            overflow-x: auto;
+            color: #24292e;
+        }
+        .code-block .comment {
+            color: #6a737d;
+        }
+        .code-command {
+            color: #032f62;
+            font-weight: bold;
+        }
+        .important-note {
+            background-color: #FEF3E0;
+            border-left: 4px solid #FF9900;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- AWS-styled top border -->
+        <div class="aws-accent-border"></div>
+        
+        <!-- Header -->
+        <div class="px-16 pt-10 pb-6">
+            <h1 class="text-4xl font-bold text-gray-800">Step 4: Prepare Web Directory & Upload Files</h1>
+            <div class="w-20 h-1 bg-orange-400 mt-3"></div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="content-area px-16">
+            <p class="text-lg mb-4">Add user to the Apache web group:</p>
+            
+            <div class="code-block">
+                <span class="comment"># Add your user to the www-data group</span><br>
+                <span class="code-command">sudo usermod -a -G www-data ubuntu</span>
+            </div>
+            
+            <div class="important-note">
+                <div class="flex items-start">
+                    <div class="mr-3">
+                        <i class="fas fa-exclamation-triangle text-xl aws-orange"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold mb-1">IMPORTANT:</p>
+                        <p>For this change to take effect, you must log out (<code>exit</code>) and log back in with SSH.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-lg mb-4">After reconnecting, set the correct permissions:</p>
+            
+            <div class="code-block">
+                <span class="comment"># Change ownership of the web directory</span><br>
+                <span class="code-command">sudo chown -R ubuntu:www-data /var/www/html</span><br><br>
+                <span class="comment"># Set directory permissions to be writable by the group</span><br>
+                <span class="code-command">sudo chmod -R 775 /var/www/html</span>
+            </div>
+            
+            <p class="text-lg mb-4">Upload your project files from your local machine:</p>
+            
+            <div class="code-block">
+                <span class="comment"># On your LOCAL machine, use scp to upload the folder</span><br>
+                <span class="code-command">scp -r -i /path/to/your/my-aws-key.pem ch19 ubuntu@your-ec2-public-ip:/var/www/html/</span>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="absolute bottom-8 right-8 text-sm text-gray-500">
+            <i class="fab fa-aws mr-2 aws-orange"></i>AWS EC2 Deployment Tutorial
+        </div>
+        
+        <!-- AWS-styled bottom border -->
+        <div class="aws-accent-border absolute bottom-0"></div>
+    </div>
+</body>
+</html>
